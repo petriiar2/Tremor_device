@@ -219,7 +219,7 @@ Bluetooth transmission is intentionally implemented only from the **wrist unit**
 ### Why We Moved Away from the Original Design
 
 <p align="center">
-  <img src="EMG_Old.png" width="45%"/>
+  <img src="EMG_Test.png" width="100%"/>
 </p>
 
 The first prototype used a **Muscle Sensor V3.0** EMG sensor with an analog filter cascade (band-stop at 50 Hz + low-pass at 1000 Hz). Two critical problems emerged:
@@ -235,7 +235,7 @@ Greater load → higher permanent muscle strain → signal offset relative to un
 ### Current Design Improvements
 
 <p align="center">
-  <img src="EMG New.png" width="45%"/>
+  <img src="EMG New.png" width="100%"/>
 </p>
 
 | Aspect | Old Design | Current Design |
@@ -258,7 +258,7 @@ Image of the wrist device
 
 Image of the forearm device and the general view of the system
 <p align="center">
-  <img src="wrist top.jpeg" width="45%"/>
+  <img src="wrist_top.jpeg" width="45%"/>
   &nbsp;
   <img src="Device.jpeg" width="45%"/>
 </p>
