@@ -34,12 +34,12 @@ Two independent wearable units communicate with each other and relay all data to
  ├─ Li-Po 5V battery (JST)              ├─ On-board IMU (3-axis accel + gyro)
  └─ USB-B connector (UART TX/RX)        ├─ Li-Po 5V battery (JST)
                                         └─ USB-A connector (UART TX/RX)
-                 │                                   │
-                 └──────────── UART ─────────────────┘
-                                                     │
-                                                BLE (2.4 GHz)
-                                                     │
-                                                 [Computer]
+                 │                                   │  │
+                 └──────────── UART ─────────────────┘  │
+                                                        │
+                                                   BLE (2.4 GHz)
+                                                        │
+                                                    [Computer]
 ```
 
 The forearm unit collects EMG data, applies preliminary digital filtering on-chip, and forwards the processed samples to the wrist unit over a UART serial link. The wrist unit aggregates EMG, IMU, and pressure data and transmits everything to the computer over Bluetooth.
