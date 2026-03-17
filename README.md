@@ -1,8 +1,31 @@
 # Smart Hand Rehabilitation System — Hardware
 
 > ⚠️ **This repository is under active development.** Hardware schematics, firmware code, and documentation will be updated continuously as the project evolves.
-
+> 
+> **PCC2 Project | KTH Royal Institute of Technology | MSc Medical Engineering | Stockholm, 2026**  
+> *This repository covers only the hardware design, sensor selection and wiring - the physical core of the system.*
+> *Other aspects of the project ( software component , website ) not considered in this repository*
 ---
+
+## Table of Contents
+
+- [About the Project](#about-the-project)
+- [System Architecture](#system-architecture)
+  - [Device Block](#device-block-this-repo)
+  - [Computer Block](#computer-block-external-repos)
+- [Hardware Design](#hardware-design)
+  - [Microcontroller: XIAO Seeed NRF52840](#microcontroller-xiao-seeed-nrf52840)
+- [Sensors](#sensors)
+  - [1. Pressure Sensor — ABP-DRRV060MGAA5](#1-pressure-sensor--abp-drrv060mgaa5)
+  - [2. EMG Sensor — EMG-LAB](#2-emg-sensor--emg-lab-custom-lab-board)
+  - [3. IMU Sensor — On-board NRF52840](#3-imu-sensor--on-board-nrf52840)
+- [Inter-Device Communication](#inter-device-communication)
+- [Design Evolution](#design-evolution)
+- [Device Specifications](#device-specifications)
+- [Component List](#component-list)
+- [Future Hardware Work](#future-hardware-work)
+- [Authors](#authors)
+- [License](#license)
 
 ## About the Project
 
@@ -195,6 +218,10 @@ Bluetooth transmission is intentionally implemented only from the **wrist unit**
 
 ### Why We Moved Away from the Original Design
 
+<p align="center">
+  <img src="EMG_Old.png" width="45%"/>
+</p>
+
 The first prototype used a **Muscle Sensor V3.0** EMG sensor with an analog filter cascade (band-stop at 50 Hz + low-pass at 1000 Hz). Two critical problems emerged:
 
 **Battery problem:** The Muscle Sensor V3.0 requires a ±9 V bipolar supply. Generating this from two 9 V batteries (each 45 g) mounted on the wrist added significant mass — enough to mechanically affect tremor measurements and distort baseline muscle load:
@@ -207,6 +234,10 @@ Greater load → higher permanent muscle strain → signal offset relative to un
 
 ### Current Design Improvements
 
+<p align="center">
+  <img src="EMG New.png" width="45%"/>
+</p>
+
 | Aspect | Old Design | Current Design |
 |---|---|---|
 | EMG sensor | Muscle Sensor V3.0 | EMG-LAB (3.3V, on-board electrodes) |
@@ -216,6 +247,21 @@ Greater load → higher permanent muscle strain → signal offset relative to un
 | Weight (forearm) | — | 19 g (25 g with battery) |
 | Weight (wrist) | — | 14 g (20 g with battery) |
 | IMU placement | Wrist | Wrist (enables future forearm tremor localization) |
+
+
+Image of the wrist device
+<p align="center">
+  <img src="Forearm_top.jpeg" width="45%"/>
+  &nbsp;
+  <img src="Forearm_side.jpeg" width="45%"/>
+</p>
+
+Image of the forearm device and the general view of the system
+<p align="center">
+  <img src="wrist top.jpeg" width="45%"/>
+  &nbsp;
+  <img src="Device.jpeg" width="45%"/>
+</p>
 
 ---
 
@@ -257,23 +303,6 @@ Greater load → higher permanent muscle strain → signal offset relative to un
 - **Unified charging:** Single charging port / switch for both units instead of two separate JST connectors
 - **Extended sensor coverage:** Additional IMU unit on the forearm to localize tremor by segment
 - **Analog filter revisit:** At a later stage, when minimizing acquisition latency becomes critical, a minimal analog pre-filter stage may be reintroduced
-
----
-
-## Repository Structure
-
-```
-/
-├── schematics/          # KiCad / PDF schematics for both units
-├── firmware/            # NRF52840 firmware (C / Zephyr RTOS)
-│   ├── wrist/
-│   └── forearm/
-├── hardware/            # PCB layout files, perfboard assembly notes
-├── docs/                # Additional documentation and figures
-└── README.md
-```
-
-> 📌 Schematics and firmware will be uploaded as the repository is populated. Check back for updates.
 
 ---
 
