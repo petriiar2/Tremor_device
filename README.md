@@ -311,8 +311,8 @@ Image of the forearm device and the general view of the system
 This project was developed as part of a university course project.
 
 - **Iaroslav Petrishchev** — Hardware design, electrical schematics, component selection and procurement, device assembly and testing *(this repository)*
-- **Naya Nasr** — NRF52 sensor programming, data acquisition firmware, web application
-- **Lucía Pérez Sáez** — Exercise protocols, signal processing design, backend integration, FSM and WebSocket logic
+- **Naya Nasr** [LinkedIn](https://www.linkedin.com/in/nasrnaya/)  — NRF52 sensor programming, data acquisition firmware, web application
+- **Lucía Pérez Sáez** [LinkedIn]( https://www.linkedin.com/in/lucia-perez-saez/)  — Exercise protocols, signal processing design, backend integration, FSM and WebSocket logic
 
 ---
 
