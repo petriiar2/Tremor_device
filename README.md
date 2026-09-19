@@ -1,7 +1,5 @@
 # Smart Hand Rehabilitation System — Hardware
 
-> ⚠️ **This repository is under active development.** Hardware schematics, firmware code, and documentation will be updated continuously as the project evolves.
-> 
 > **PCC2 Project | KTH Royal Institute of Technology | MSc Medical Engineering | Stockholm, 2026**  
 > *This repository covers only the hardware design, sensor selection, wiring and embedded firmware - the physical core of the system.*
 > *Other aspects of the project ( software backend , web application ) are maintained separately and only referenced here for context.*
