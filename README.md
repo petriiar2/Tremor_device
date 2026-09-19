@@ -94,8 +94,6 @@ Both units are built around the **NRF52840** board (NRF52 family). Key propertie
 
 All analog signal processing (filtering, ADC) happens directly on the board, eliminating the need for external op-amp circuits. This is a deliberate departure from the original design (see [Design Evolution](#design-evolution) below).
 
----
-
 ### Sensors
 
 #### 1. Pressure Sensor — ABP-DRRV060MGAA5
