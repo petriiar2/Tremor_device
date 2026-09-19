@@ -22,6 +22,7 @@
 - [Inter-Device Communication](#inter-device-communication)
 - [Embedded Firmware](#embedded-firmware)
 - [Design Evolution](#design-evolution)
+- [Case Design](#case-design)
 - [Device Specifications](#device-specifications)
 - [Component List](#component-list)
 - [Future Hardware Work](#future-hardware-work)
@@ -287,7 +288,25 @@ The new EMG-LAB sensor has both electrodes embedded directly on the board. To mi
 
 The two boards each have their own 5 V Li-Po battery on a 2-pin JST connector, so every unit operates fully independently, both operationally and energetically. Dedicated slide switches allow each device to be turned on independently and shut down in a controlled manner.
 
-PCBs were designed for both devices according to the tested prototypes, but due to the limited budget and capabilities of the university equipment, PCB fabrication was abandoned in favor of perfboard prototypes trimmed to fit the components.
+PCBs were designed for both devices according to the tested prototypes and their circuits. Due to the limited budget and capabilities of the university equipment, PCB fabrication was abandoned in favor of perfboard prototypes trimmed to fit the components — but the completed board designs are documented here as the intended production form.
+
+**PCB layouts (2D):**
+<p align="center">
+  <img src="PCB_Forearm_layout.png" width="45%"/>
+  &nbsp;
+  <img src="PCB_Wrist_layout.png" width="45%"/>
+</p>
+<p align="center"><i>(left) Forearm device — EMG sensor board &nbsp;•&nbsp; (right) Wrist device — pressure sensor board</i></p>
+
+**PCB 3D renders:**
+<p align="center">
+  <img src="PCB_Forearm_3D.png" width="45%"/>
+  &nbsp;
+  <img src="PCB_Wrist_3D.png" width="45%"/>
+</p>
+<p align="center"><i>(left) Forearm device 3D view &nbsp;•&nbsp; (right) Wrist device 3D view</i></p>
+
+> 📌 *Image placeholders — drop the actual PCB layout and 3D-render files into the repo under the names above (`PCB_Forearm_layout.png`, `PCB_Wrist_layout.png`, `PCB_Forearm_3D.png`, `PCB_Wrist_3D.png`) and they will render here.*
 
 Image of the forearm device
 <p align="center">
@@ -302,6 +321,44 @@ Image of the wrist device and the general view of the system
   &nbsp;
   <img src="Device.jpeg" width="45%"/>
 </p>
+
+---
+
+## Case Design
+
+A protective case is required for safe patient use: it must isolate the patient from the circuit elements and hold the board and battery cells together as one unit. Given the constraints of the available tools and 3D printer, each case is built around a **rigid printed substrate**, complemented by a soft outer layer:
+
+- **Forearm (arm) device** — the rigid substrate is paired with a soft-plastic cover of a similar shape.
+- **Wrist device** — the rigid substrate is fixed inside a sports band through purpose-designed eyelets.
+
+**Case substrates (3D design):**
+<p align="center">
+  <img src="Case_Arm_substrate.png" width="45%"/>
+  &nbsp;
+  <img src="Case_Wrist_substrate.png" width="45%"/>
+</p>
+<p align="center"><i>(left) Arm device substrate &nbsp;•&nbsp; (right) Wrist device substrate</i></p>
+
+**Assembled devices in their cases:**
+<p align="center">
+  <img src="Case_Assembled_substrates.png" width="45%"/>
+  &nbsp;
+  <img src="Case_Assembled_devices.png" width="45%"/>
+</p>
+<p align="center"><i>(left) Assembled substrates &nbsp;•&nbsp; (right) Fully assembled devices with bulb and strap</i></p>
+
+**Device in use:**
+<p align="center">
+  <img src="Case_In_Use.jpeg" width="45%"/>
+</p>
+<p align="center"><i>General view of the system worn on the hand and forearm</i></p>
+
+> 📌 *Image placeholders — add the case files under the names above (`Case_Arm_substrate.png`, `Case_Wrist_substrate.png`, `Case_Assembled_substrates.png`, `Case_Assembled_devices.png`, `Case_In_Use.jpeg`).*
+
+**Known limitations of the current case:**
+- The university printer could not produce the complex mechanical elements originally planned to hold the arm-device cap, so those were dropped.
+- The main fasteners are currently weakly adhesive elements, which do not provide a sufficiently stable fit. Stronger *permanent* fastening is not acceptable, because the device must remain accessible for programming and configuration — a removable but firmer mechanism is needed.
+- The EMG-sensor clip mechanism is particularly weak; its fastenings have loosened through wear, and since the sensor is on loan it cannot be permanently re-fitted.
 
 ---
 
@@ -340,12 +397,24 @@ Image of the wrist device and the general view of the system
 
 ## Future Hardware Work
 
-- **Enclosure:** 3D-printed or workshop-fabricated housing to protect components and prevent patient contact with circuit elements. The current case uses rigid substrates plus a soft cover/sports band; fasteners are the weakest point and need a stronger yet removable mechanism (device access for programming is still required).
+**Enclosure & mechanical**
+- **Stronger case fastening:** replace the weak adhesive fasteners with a firmer *removable* mechanism (e.g. clothespin-style clips) or use more advanced printing methods, while keeping the device accessible for programming and configuration.
+- **EMG sensor clip:** the borrowed EMG-LAB mounting clip has loosened with wear and needs a proper replacement holder.
+- **Manufactured PCBs:** fabricate the documented board designs instead of perfboard prototypes once budget/equipment allow.
+
+**Power**
 - **Power switch:** slide switches are present per unit; a unified power scheme is desirable.
-- **Unified charging:** Single charging port / switch for both units instead of two separate JST connectors
-- **Extended sensor coverage:** Additional IMU unit on the forearm to localize tremor by segment
-- **Analog filter revisit:** At a later stage, when minimizing acquisition latency becomes critical, a minimal analog pre-filter stage may be reintroduced
-- **EMG sensor clip:** the borrowed EMG-LAB mounting clip has loosened with wear and needs a proper replacement
+- **Unified charging:** single charging port / switch for both units instead of two separate JST connectors.
+
+**Sensing**
+- **Extended sensor coverage:** additional IMU unit on the forearm to localize tremor by segment.
+- **Analog filter revisit:** at a later stage, when minimizing acquisition latency becomes critical, a minimal analog pre-filter stage may be reintroduced.
+- **Native 25 Hz retraining / sampling-rate-aware normalisation:** close the domain gap between the public training datasets (2000 Hz / 100 Hz) and the device's 25 Hz stream.
+
+**Usability & scope (from the final report)**
+- **Phone-friendly platform:** a mobile-optimized interface so all content is clearly displayed on a phone screen.
+- **Video tutorial:** a short guide showing patients how to set up and place the devices independently before exercising.
+- **Broader condition coverage:** expand beyond stroke and Parkinson's/tremor to a wider range of neuro-degenerative conditions and their hand/arm manifestations.
 
 ---
 
