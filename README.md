@@ -401,12 +401,6 @@ A protective case is required for safe patient use: it must isolate the patient 
 **Sensing**
 - **Extended sensor coverage:** additional IMU unit on the forearm to localize tremor by segment.
 - **Analog filter revisit:** at a later stage, when minimizing acquisition latency becomes critical, a minimal analog pre-filter stage may be reintroduced.
-- **Native 25 Hz retraining / sampling-rate-aware normalisation:** close the domain gap between the public training datasets (2000 Hz / 100 Hz) and the device's 25 Hz stream.
-
-**Usability & scope (from the final report)**
-- **Phone-friendly platform:** a mobile-optimized interface so all content is clearly displayed on a phone screen.
-- **Video tutorial:** a short guide showing patients how to set up and place the devices independently before exercising.
-- **Broader condition coverage:** expand beyond stroke and Parkinson's/tremor to a wider range of neuro-degenerative conditions and their hand/arm manifestations.
 
 ---
 
