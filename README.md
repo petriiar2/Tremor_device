@@ -96,9 +96,9 @@ All analog signal processing (filtering, ADC) happens directly on the board, eli
 
 ---
 
-## Sensors
+### Sensors
 
-### 1. Pressure Sensor — ABP-DRRV060MGAA5
+#### 1. Pressure Sensor — ABP-DRRV060MGAA5
 
 **Purpose:** Measures grip force during exercises. Connected via a plastic tube to a rubber bulb held in the patient's hand.
 
@@ -126,7 +126,7 @@ All analog signal processing (filtering, ADC) happens directly on the board, eli
 
 ---
 
-### 2. EMG Sensor — EMG-LAB (custom lab board)
+#### 2. EMG Sensor — EMG-LAB (custom lab board)
 
 **Purpose:** Measures electrical activity of the flexor digitorum superficialis muscle to assess neuromuscular activation, fatigue, and tremor modulation.
 
@@ -167,7 +167,7 @@ All analog signal processing (filtering, ADC) happens directly on the board, eli
 
 ---
 
-### 3. IMU Sensor — LSM6DS3 (on-board NRF52840)
+#### 3. IMU Sensor — LSM6DS3 (on-board NRF52840)
 
 **Purpose:** Measures linear acceleration and angular velocity in 3 axes to quantify hand tremor, orientation stability, and movement quality.
 
@@ -207,7 +207,7 @@ All analog signal processing (filtering, ADC) happens directly on the board, eli
 
 ---
 
-## Inter-Device Communication
+### Inter-Device Communication
 
 The two boards communicate via **UART** over pins `D6`–`D7` at 115200 baud, routed through an external USB cable (USB-A on the wrist unit, USB-B on the forearm unit). UART was chosen because it is a digital interface — it introduces zero noise into the data, and all analog signal paths are kept as short as possible within each unit.
 
@@ -220,30 +220,9 @@ Bluetooth transmission is intentionally implemented only from the **wrist unit**
 
 ---
 
-## Embedded Firmware
+### Design Evolution
 
-Both microcontrollers run identical **40 ms timing loops**, giving a system-wide sampling rate of **25 Hz**. This rate provides a ~56% margin above the Nyquist minimum for the 4–12 Hz tremor band, lets the frame fit within the negotiated BLE MTU, and allows the MCU to deep-sleep between transmissions (battery life > 8 h continuous).
-
-**Micro 1 (forearm — EMG):** samples EMG at 25 Hz, runs the on-device two-stage preprocessing (DC offset removal + 50 Hz IIR notch + 20–450 Hz band-pass), and pushes each value over UART.
-
-**Micro 2 (wrist — aggregation + BLE):** three concurrent tasks —
-- **Pressure:** 12-bit ADC reading (0–4095) from `D0`, normalized to 8-bit (÷16)
-- **IMU:** LSM6DS3 over I²C `0x6A`, `CTRL1_XL`/`CTRL2_G = 0x60`, decimated to 25 Hz
-- **EMG reception:** character-by-character UART parser on the `E,<value>\n` stream
-
-Every 40 ms the aggregated values are packed into a single comma-separated ASCII frame and sent via the Nordic UART Service (NUS):
-
-```
-F,<frame_id>,<pressure>,<emg>,<ax>,<ay>,<az>,<gx>,<gy>,<gz>\n
-```
-
-Frames are ~35–40 bytes. Integrity is checked by counting comma separators (9 expected); malformed frames are discarded. A **247-byte MTU** is requested at connection so the full frame fits in one BLE packet without fragmentation, though the system still works if a lower MTU is negotiated. Transmission is fire-and-forget (no retransmission); frame-ID gaps flag packet loss, which stays under 1% and does not affect clinical assessment.
-
----
-
-## Design Evolution
-
-### Why We Moved Away from the Original Design
+#### Why Moved Away from the Original Design
 
 > The old single-unit schematic is preserved for reference:
 <p align="center">
@@ -262,7 +241,7 @@ Because the NRF52 board accepts a maximum of 3.3 V on its pins, the bipolar supp
 
 **Analog filtering problem:** Component availability in the lab was limited; the exact resistor-capacitor values for the target filter frequencies were not always obtainable. Compromise values resulted in poorly attenuated noise, requiring additional digital post-processing anyway. Since digital filtering on the NRF52840 is more precise and flexible than any analog cascade achievable with available parts, analog filtering was abandoned entirely.
 
-### Current Design Improvements
+#### Current Design Improvements
 
 <p align="center">
   <img src="Schema.png" width="100%"/>
@@ -313,6 +292,27 @@ Image of the wrist device and the general view of the system
   &nbsp;
   <img src="Device.jpeg" width="45%"/>
 </p>
+
+---
+
+## Embedded Firmware
+
+Both microcontrollers run identical **40 ms timing loops**, giving a system-wide sampling rate of **25 Hz**. This rate provides a ~56% margin above the Nyquist minimum for the 4–12 Hz tremor band, lets the frame fit within the negotiated BLE MTU, and allows the MCU to deep-sleep between transmissions (battery life > 8 h continuous).
+
+**Micro 1 (forearm — EMG):** samples EMG at 25 Hz, runs the on-device two-stage preprocessing (DC offset removal + 50 Hz IIR notch + 20–450 Hz band-pass), and pushes each value over UART.
+
+**Micro 2 (wrist — aggregation + BLE):** three concurrent tasks —
+- **Pressure:** 12-bit ADC reading (0–4095) from `D0`, normalized to 8-bit (÷16)
+- **IMU:** LSM6DS3 over I²C `0x6A`, `CTRL1_XL`/`CTRL2_G = 0x60`, decimated to 25 Hz
+- **EMG reception:** character-by-character UART parser on the `E,<value>\n` stream
+
+Every 40 ms the aggregated values are packed into a single comma-separated ASCII frame and sent via the Nordic UART Service (NUS):
+
+```
+F,<frame_id>,<pressure>,<emg>,<ax>,<ay>,<az>,<gx>,<gy>,<gz>\n
+```
+
+Frames are ~35–40 bytes. Integrity is checked by counting comma separators (9 expected); malformed frames are discarded. A **247-byte MTU** is requested at connection so the full frame fits in one BLE packet without fragmentation, though the system still works if a lower MTU is negotiated. Transmission is fire-and-forget (no retransmission); frame-ID gaps flag packet loss, which stays under 1% and does not affect clinical assessment.
 
 ---
 
