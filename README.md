@@ -302,8 +302,6 @@ PCBs were designed for both devices according to the tested prototypes and their
 </p>
 <p align="center"><i>(left) Forearm device 3D view &nbsp;•&nbsp; (right) Wrist device 3D view</i></p>
 
-> 📌 *Image placeholders — drop the actual PCB layout and 3D-render files into the repo under the names above (`PCB_Forearm_layout.png`, `PCB_Wrist_layout.png`, `PCB_Forearm_3D.png`, `PCB_Wrist_3D.png`) and they will render here.*
-
 Image of the forearm device
 <p align="center">
   <img src="Forearm_top.jpeg" width="45%"/>
@@ -337,9 +335,9 @@ A protective case is required for safe patient use: it must isolate the patient 
 
 **Assembled devices in their cases:**
 <p align="center">
-  <img src="Case_Assembled_substrates.png" width="45%"/>
+  <img src="Case_Assembled_substrates.jpeg" width="45%"/>
   &nbsp;
-  <img src="Case_Assembled_devices.png" width="45%"/>
+  <img src="Case_Assembled_devices.jpeg" width="45%"/>
 </p>
 <p align="center"><i>(left) Assembled substrates &nbsp;•&nbsp; (right) Fully assembled devices with bulb and strap</i></p>
 
@@ -348,8 +346,6 @@ A protective case is required for safe patient use: it must isolate the patient 
   <img src="Case_In_Use.jpeg" width="45%"/>
 </p>
 <p align="center"><i>General view of the system worn on the hand and forearm</i></p>
-
-> 📌 *Image placeholders — add the case files under the names above (`Case_Arm_substrate.png`, `Case_Wrist_substrate.png`, `Case_Assembled_substrates.png`, `Case_Assembled_devices.png`, `Case_In_Use.jpeg`).*
 
 **Known limitations of the current case:**
 - The university printer could not produce the complex mechanical elements originally planned to hold the arm-device cap, so those were dropped.
