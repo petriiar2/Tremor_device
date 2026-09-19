@@ -247,6 +247,7 @@ Frames are ~35–40 bytes. Integrity is checked by counting comma separators (9 
 
 ### Why We Moved Away from the Original Design
 
+> The old single-unit schematic is preserved for reference:
 <p align="center">
   <img src="EMG_Test.png" width="100%"/>
 </p>
@@ -262,11 +263,6 @@ Greater load → higher permanent muscle strain → signal offset relative to un
 Because the NRF52 board accepts a maximum of 3.3 V on its pins, the bipolar supply was stepped down with a voltage divider (`R1 = 10 kΩ`, `R2 = 5.1 kΩ` → ≈ 3.04 V). A band-stop filter (MCP6002 op-amp, `C7 = 47 nF`, `R6 = 68 kΩ`) targeted 50 Hz mains (≈ 49.7 Hz), and a low-pass stage (`R7 = 1.6 kΩ`, `C = 100 nF`) cut noise above ≈ 995 Hz.
 
 **Analog filtering problem:** Component availability in the lab was limited; the exact resistor-capacitor values for the target filter frequencies were not always obtainable. Compromise values resulted in poorly attenuated noise, requiring additional digital post-processing anyway. Since digital filtering on the NRF52840 is more precise and flexible than any analog cascade achievable with available parts, analog filtering was abandoned entirely.
-
-> The old single-unit schematic is preserved for reference:
-> <p align="center">
->   <img src="Old_Device_Schematic.png" width="80%"/>
-> </p>
 
 ### Current Design Improvements
 
