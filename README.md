@@ -267,7 +267,7 @@ Because the NRF52 board accepts a maximum of 3.3 V on its pins, the bipolar supp
 ### Current Design Improvements
 
 <p align="center">
-  <img src="EMG New.png" width="100%"/>
+  <img src="Schema.png" width="100%"/>
 </p>
 
 The new EMG-LAB sensor has both electrodes embedded directly on the board. To minimize wire length between the sensor and the microcontroller (reducing noise), the board and sensor are placed on the inner forearm. Since tremor must still be measured at the wrist, the original single device was split into two independent units: one on the wrist and one on the inner forearm.
